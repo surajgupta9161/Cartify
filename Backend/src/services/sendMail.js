@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-const sendMail = async (to, message, text) => {
+const sendMail = async (to, subject, text) => {
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -11,9 +11,9 @@ const sendMail = async (to, message, text) => {
     })
 
     await transporter.sendMail({
-      from: process.env.EMAIL,
+      from: `${process.env.EMAIL} from Cartify `,
       to: to,
-      subject: message,
+      subject: subject,
       text: text
     })
   } catch (error) {
@@ -21,4 +21,4 @@ const sendMail = async (to, message, text) => {
   }
 }
 
-module.exports = sendMail
+module.exports = { sendMail }
