@@ -94,6 +94,12 @@ const login = async (req, res) => {
       return res.status(404).json({ message: 'User Not Found' })
     }
 
+    if (!findUser.isverified) {
+      return res
+        .status(401)
+        .json({ message: 'User Not Verified, Please verify your email' })
+    }
+
     const isPasswordMatch = await bcrypt.compare(password, findUser.password)
 
     if (!isPasswordMatch) {
@@ -118,4 +124,42 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { register, login }
+/**
+ * -POST /api/aut/logout
+ *  User Logout Controller
+ */
+const logout = async (req, res) => {
+  try {
+    res.clearCookie('userToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
+    })
+    return res.status(200).json({ message: 'User Logout Successfull' })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Logout Failed', error: error.message })
+  }
+}
+
+/**
+ * -GET /api/auth/getUsers
+ *  User getUsers Controller
+ */
+
+const getUsers = async (req, res) => {
+  try {
+    const findUser = await userModel.findOne(req.user._id)
+
+    const users = await userModel.find()
+
+    return res.status(200).json({ message: 'Get User Successfull', users })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Get User Failed', error: error.message })
+  }
+}
+
+module.exports = { register, login, logout, getUsers }
