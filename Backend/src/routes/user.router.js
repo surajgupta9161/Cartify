@@ -18,4 +18,9 @@ UserRouter.post('/login', userController.login)
  */
 UserRouter.post('/verifyotp', otpController.verifyotp)
 
+/**
+ * -POST /api/auth/resendotp
+ */
+UserRouter.post('/resendotp', otpController.resendotp)
+
 module.exports = UserRouter
