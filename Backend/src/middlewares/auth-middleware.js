@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken')
 const authMiddleware = async (req, res, next) => {
   const userToken = req.cookies.userToken
   if (!userToken) {
-    return res.status(401).json({ message: 'Unauthorized Cookie not found ' })
+    return res
+      .status(401)
+      .json({ message: 'Unauthorized Please Register or Login First ' })
   }
   try {
     const decodedToken = jwt.verify(userToken, process.env.JWT_SECRET)

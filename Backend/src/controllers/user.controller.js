@@ -8,7 +8,7 @@ const { sendMail } = require('../services/sendMail')
  * User Register Controller
  */
 const register = async (req, res) => {
-  let { name, email, password, role } = req.body
+  let { name, email, password } = req.body
   try {
     if (!name || !email || !password) {
       return res.status(400).json({ message: 'All fields are required' })
@@ -38,7 +38,6 @@ const register = async (req, res) => {
         name,
         email,
         password: hashedPassword,
-        role,
         otp: OTP,
         otpExpire: Date.now() + 10 * 60 * 1000 // 10 minutes
       })
@@ -150,10 +149,7 @@ const logout = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const findUser = await userModel.findOne(req.user._id)
-
-    const users = await userModel.find()
-
+    const users = await userModel.find().select('-password')
     return res.status(200).json({ message: 'Get User Successfull', users })
   } catch (error) {
     return res
