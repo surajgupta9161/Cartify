@@ -55,11 +55,68 @@ const createProduct = async (req, res) => {
   }
 }
 
-const getProductById = async (req, res) => {}
+const getProductById = async (req, res) => {
+  try {
+    const product = await productModel.findById(req.params.id)
+    if (!product) {
+      return res.status(404).json({ message: 'Product Not Found' })
+    }
+    return res.status(200).json({ message: 'Get Product Successfull', product })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Get Product Failed', error: error.message })
+  }
+}
 
-const updateProduct = async (req, res) => {}
+const updateProduct = async (req, res) => {
+  const { name, description, price, category, stock } = req.body
+  try {
+    const product = await productModel.findById(req.params.id)
+    if (!product) {
+      return res.status(404).json({ message: 'Product Not Found' })
+    }
+    if (product) {
+      product.name = name || product.name
+      product.description = description || product.description
+      product.price = price || product.price
+      product.category = category || product.category
+      product.stock = stock || product.stock
+    }
 
-const deleteProduct = async (req, res) => {}
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path)
+      product.image = result.secure_url
+    }
+
+    await product.save()
+
+    return res
+      .status(200)
+      .json({ message: 'Product Updated Successfull', product })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Update Product Failed', error: error.message })
+  }
+}
+
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await productModel.findById(req.params.id)
+    if (!product) {
+      return res.status(404).json({ message: 'Product Not Found' })
+    }
+    await product.deleteOne()
+    return res
+      .status(200)
+      .json({ message: 'Product Deleted Successfull', product })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Delete Product Failed', error: error.message })
+  }
+}
 
 module.exports = {
   getProducts,

@@ -15,10 +15,11 @@ productRouter.post(
   upload.single('image'),
   productController.createProduct
 )
-productRouter.put(
+productRouter.patch(
   '/:id',
   authMiddleware,
   adminMiddleware,
+  upload.single('image'),
   productController.updateProduct
 )
 productRouter.delete(
