@@ -77,11 +77,11 @@ const updateProduct = async (req, res) => {
       return res.status(404).json({ message: 'Product Not Found' })
     }
     if (product) {
-      product.name = name || product.name
-      product.description = description || product.description
-      product.price = price || product.price
-      product.category = category || product.category
-      product.stock = stock || product.stock
+      product.name = name ?? product.name
+      product.description = description ?? product.description
+      product.price = price ?? product.price
+      product.category = category ?? product.category
+      product.stock = stock ?? product.stock
     }
 
     if (req.file) {
