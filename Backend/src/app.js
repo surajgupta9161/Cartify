@@ -4,6 +4,7 @@ const app = express()
 const cookieParser = require('cookie-parser')
 const userRoute = require('./routes/user.router')
 const productRoute = require('./routes/product.router')
+const orderRoute = require('./routes/order.route')
 
 app.use(cookieParser())
 app.use(cors())
@@ -19,5 +20,11 @@ app.use('/api/auth', userRoute)
  * -Product Route
  */
 app.use('/api/product', productRoute)
+
+/**
+ * -Order Route
+ */
+
+app.use('/api/order', orderRoute)
 
 module.exports = app
