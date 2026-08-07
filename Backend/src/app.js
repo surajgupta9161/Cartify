@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const userRoute = require('./routes/user.router')
 const productRoute = require('./routes/product.router')
 const orderRoute = require('./routes/order.route')
+const cartRoute = require('./routes/cart.route')
 
 app.use(cookieParser())
 app.use(cors())
@@ -22,9 +23,13 @@ app.use('/api/auth', userRoute)
 app.use('/api/product', productRoute)
 
 /**
+ * -Add to Cart Route
+ */
+app.use('/api/cart', cartRoute)
+
+/**
  * -Order Route
  */
-
 app.use('/api/order', orderRoute)
 
 module.exports = app

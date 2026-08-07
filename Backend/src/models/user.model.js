@@ -1,16 +1,15 @@
-const { verify } = require('jsonwebtoken')
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
     minlength: 3,
     trim: true
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
     trim: true,
     lowercase: true,
@@ -18,14 +17,14 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    require: true,
+    required: true,
     minlength: 6,
     trim: true
   },
   role: {
     type: String,
     enum: ['user', 'admin'],
-    require: true,
+    required: true,
     default: 'user'
   },
   otp: {
@@ -37,7 +36,21 @@ const userSchema = new mongoose.Schema({
   isverified: {
     type: Boolean,
     default: false
-  }
+  },
+  cart: [
+    {
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+        min: 1
+      }
+    }
+  ]
 })
 
 const userModel = mongoose.model('User', userSchema)
