@@ -5,15 +5,15 @@ const authMiddleware = require('../middlewares/auth-middleware')
 const adminMiddleware = require('../middlewares/admin.middleware')
 
 orderRouter.post('/create', authMiddleware, orderController.createOrder)
-orderRouter.get('/', authMiddleware, orderController.myOrders)
+orderRouter.get('/myorders', authMiddleware, orderController.myOrders)
 orderRouter.get(
-  '/:id',
+  '/allorders',
   authMiddleware,
   adminMiddleware,
   orderController.getAllOrders
 )
 orderRouter.patch(
-  '/:id',
+  '/updatestatus/:id',
   authMiddleware,
   adminMiddleware,
   orderController.updateOrderStatus

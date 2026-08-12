@@ -145,13 +145,13 @@ const updateOrderStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({ message: 'Order Not Found' })
     }
-    order.status = status
+    order.orderStatus = status
     await order.save()
-    res.status(200).json({ message: 'Update Order Successfull', order })
+    res.status(200).json({ message: 'Order Status Updated', order })
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Update Order Failed', error: error.message })
+      .json({ message: 'Order Status Update Failed', error: error.message })
   }
 }
 
