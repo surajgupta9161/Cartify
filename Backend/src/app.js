@@ -6,6 +6,7 @@ const userRoute = require('./routes/user.router')
 const productRoute = require('./routes/product.router')
 const orderRoute = require('./routes/order.route')
 const cartRoute = require('./routes/cart.route')
+const paymentRoute = require('./routes/payment.route')
 
 app.use(cookieParser())
 app.use(cors())
@@ -31,5 +32,10 @@ app.use('/api/cart', cartRoute)
  * -Order Route
  */
 app.use('/api/order', orderRoute)
+
+/**
+ * -Payment Route
+ */
+app.use('/api/payment', paymentRoute)
 
 module.exports = app
