@@ -15,7 +15,7 @@ const getAnalytics = async (req, res) => {
       }
     ])
     return res.status(200).json({
-      message: 'Get Analytics Successfull',
+      message: 'Get Analytics Data Successfull',
       users,
       orders,
       products,
@@ -24,7 +24,7 @@ const getAnalytics = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Get Analytics Failed', error: error.message })
+      .json({ message: 'Get Analytics Data Failed', error: error.message })
   }
 }
 
