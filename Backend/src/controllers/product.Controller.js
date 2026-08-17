@@ -3,7 +3,12 @@ const cloudinary = require('../services/cloudinary')
 
 const getProducts = async (req, res) => {
   try {
-    const products = await productModel.find()
+    const { category } = req.query
+    const filter = {}
+    if (category) {
+      filter.category = category
+    }
+    const products = await productModel.find(filter)
     return res
       .status(200)
       .json({ message: 'Get Product Successfull', products })
