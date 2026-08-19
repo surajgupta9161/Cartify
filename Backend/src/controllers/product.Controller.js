@@ -5,7 +5,7 @@ const getProducts = async (req, res) => {
   try {
     const { category } = req.query
     const filter = {}
-    if (category) {
+    if (category && category !== 'All') {
       filter.category = category
     }
     const products = await productModel.find(filter)
@@ -13,6 +13,7 @@ const getProducts = async (req, res) => {
       .status(200)
       .json({ message: 'Get Product Successfull', products })
   } catch (error) {
+    console.log('🔥 GET PRODUCTS ERROR:', error)
     return res
       .status(500)
       .json({ message: 'Get Product Failed', error: error.message })

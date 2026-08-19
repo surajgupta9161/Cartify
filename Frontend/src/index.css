@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+html {
+  scrollbar-gutter: stable;
+}
 html,
 body {
   margin: 0;
@@ -8,7 +11,7 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #242323;
   color: #fff;
-  overflow-x: hidden;
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 

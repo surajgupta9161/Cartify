@@ -59,7 +59,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className='flex items-center justify-around mt-4 pb-2 gap-3 sm:gap-5 w-full border-b border-gray-600'>
+    <div className='flex items-center justify-around  pb-2 gap-3 sm:gap-5 w-full border-b border-gray-600'>
       {/* Logo */}
       <div className='shrink-0'>
         <img
@@ -93,7 +93,7 @@ const Navbar = () => {
       {/*Profile */}
       <div className='flex flex-col items-center cursor-pointer'>
         {/* Profile Icon */}
-        <div className='flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#333333] border border-gray-600 hover:bg-[#444444] transition'>
+        <div className='flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#333333] border border-gray-600 hover:bg-[#444444] transition active:scale-95 '>
           <UserRound size={21} className='text-gray-300' />
         </div>
 
@@ -102,9 +102,9 @@ const Navbar = () => {
       </div>
 
       {/** Cart */}
-      <div className='flex flex-col items-center cursor-pointer'>
+      <div className='flex flex-col items-center cursor-pointer '>
         {/* Cart Icon */}
-        <div className='relative'>
+        <div className='relative active:scale-95'>
           <div className='flex items-center justify-center w-7 h-7 sm:w-7 sm:h-7 rounded-full bg-[#333333] border border-gray-600 hover:bg-[#444444] transition'>
             <ShoppingCart size={21} className='text-gray-300' />
           </div>
