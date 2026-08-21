@@ -16,7 +16,7 @@ export const ProductProvider = ({ children }) => {
         `http://localhost:3000/api/product/?category=${activeCategory}`
       )
       let productdata = response.data.products
-      console.log(productdata)
+      // console.log(productdata)
       setProducts(productdata)
     } catch (error) {
       setLoading(false)

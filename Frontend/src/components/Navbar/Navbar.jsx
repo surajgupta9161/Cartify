@@ -3,9 +3,11 @@ import { Search } from 'lucide-react'
 import { UserRound } from 'lucide-react'
 import { ShoppingCart } from 'lucide-react'
 import { Sun, Moon } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const [placeholder, setPlaceholder] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     const texts = [
@@ -91,7 +93,10 @@ const Navbar = () => {
         />
       </div>
       {/*Profile */}
-      <div className='flex flex-col items-center cursor-pointer'>
+      <div
+        onClick={() => navigate('/profile')}
+        className='flex flex-col items-center cursor-pointer'
+      >
         {/* Profile Icon */}
         <div className='flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#333333] border border-gray-600 hover:bg-[#444444] transition active:scale-95 '>
           <UserRound size={21} className='text-gray-300' />

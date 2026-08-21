@@ -40,4 +40,9 @@ UserRouter.get(
   userController.getUsers
 )
 
+/**
+ * -GET /api/auth/getCurrentUser
+ */
+UserRouter.get('/me', authMiddleware, userController.getCurrentUser)
+
 module.exports = UserRouter
