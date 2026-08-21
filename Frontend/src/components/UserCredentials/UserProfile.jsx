@@ -7,7 +7,8 @@ import {
   Package,
   CalendarDays,
   CreditCard,
-  PackageOpen
+  PackageOpen,
+  ArrowLeft
 } from 'lucide-react'
 
 import { useUser } from '../../context/UserContext'
@@ -44,7 +45,15 @@ const UserProfile = () => {
         {/* LEFT SIDE */}
         <div className='bg-[#2d2c2c] border border-gray-700 rounded-2xl p-6 h-fit lg:sticky lg:top-6'>
           {/* PROFILE */}
-          <div className='flex flex-col items-center border-b border-gray-700 pb-6'>
+          <div className='flex flex-col items-center border-b border-gray-700 pb-6 realative'>
+            <button
+              onClick={() => navigate('/')}
+              className='flex absolute top-5 left-2 items-center gap-2 px-2 py-2 rounded-xl
+             bg-[#333232] border border-gray-700 hover:bg-[#3a3939]
+             transition cursor-pointer font-medium'
+            >
+              <ArrowLeft size={19} />
+            </button>
             <div className='w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center mb-4'>
               <User size={38} />
             </div>
