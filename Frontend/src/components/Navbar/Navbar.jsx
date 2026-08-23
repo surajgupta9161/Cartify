@@ -4,10 +4,12 @@ import { UserRound } from 'lucide-react'
 import { ShoppingCart } from 'lucide-react'
 import { Sun, Moon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '../../context/UserContext'
 
 const Navbar = () => {
   const [placeholder, setPlaceholder] = useState('')
   const navigate = useNavigate()
+  const { user } = useUser()
 
   useEffect(() => {
     const texts = [
@@ -107,20 +109,26 @@ const Navbar = () => {
       </div>
 
       {/** Cart */}
-      <div className='flex flex-col items-center cursor-pointer '>
+      <div
+        onClick={() => navigate('/cart')}
+        className='flex flex-col items-center cursor-pointer '
+      >
         {/* Cart Icon */}
+
         <div className='relative active:scale-95'>
           <div className='flex items-center justify-center w-7 h-7 sm:w-7 sm:h-7 rounded-full bg-[#333333] border border-gray-600 hover:bg-[#444444] transition'>
             <ShoppingCart size={21} className='text-gray-300' />
           </div>
 
           {/* Cart Item Count */}
-          <span
-            className='absolute -top-1 -right-1 flex items-center justify-center
-            w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-red-500 text-white text-xs font-bold'
-          >
-            3
-          </span>
+          {user?.cart?.length > 0 && (
+            <span
+              className='absolute -top-1 -right-1 flex items-center justify-center
+            w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-blue-600 text-white text-xs font-bold'
+            >
+              {user?.cart?.length}
+            </span>
+          )}
         </div>
 
         {/* Cart Text */}

@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import CategoryBar from '../components/Navbar/CategoryBar'
 import ProductList from '../components/Products/ProductList'
+import Cart from '../components/Cart/Cart'
 
 const Home = () => {
   return (

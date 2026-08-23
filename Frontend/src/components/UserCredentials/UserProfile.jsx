@@ -14,8 +14,10 @@ import {
 import { useUser } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useState } from 'react'
 const UserProfile = () => {
   const { user, orders, loading, setLoading, setOrders, setUser } = useUser()
+  const [showLogoutWarning, setShowLogoutWarning] = useState(false)
 
   const navigate = useNavigate()
 
@@ -88,12 +90,41 @@ const UserProfile = () => {
 
             {/* LOGOUT */}
             <button
-              onClick={() => handleLogout()}
+              onClick={() => setShowLogoutWarning(true)}
               className='w-full flex items-center cursor-pointer justify-center gap-2 mt-5 px-4 py-3 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition'
             >
               <LogOut size={19} />
               Logout
             </button>
+            {showLogoutWarning && (
+              <div className='fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm'>
+                <div className='w-[90%] max-w-sm rounded-2xl border border-gray-700 bg-[#10233f] p-6 shadow-2xl'>
+                  <h2 className='text-xl font-semibold text-white'>
+                    Confirm Logout
+                  </h2>
+
+                  <p className='mt-2 text-sm text-gray-400'>
+                    Are you sure you want to logout?
+                  </p>
+
+                  <div className='mt-6 flex justify-end gap-3'>
+                    <button
+                      onClick={() => setShowLogoutWarning(false)}
+                      className='cursor-pointer rounded-lg bg-gray-700 px-5 py-2 text-gray-200 transition hover:bg-gray-600'
+                    >
+                      No
+                    </button>
+
+                    <button
+                      onClick={handleLogout}
+                      className='cursor-pointer rounded-lg bg-red-500 px-5 py-2 text-white transition hover:bg-red-600'
+                    >
+                      Yes, Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <button
             onClick={() => navigate('/')}

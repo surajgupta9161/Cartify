@@ -11,7 +11,7 @@ cartRouter.delete(
   cartController.removeFromCart
 )
 cartRouter.patch(
-  '/updatecartquantity/:productId/:action',
+  '/updatecartquantity/:productId',
   authMiddleware,
   cartController.updateCartQuantity
 )

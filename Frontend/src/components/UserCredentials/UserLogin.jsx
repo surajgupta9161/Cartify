@@ -3,10 +3,12 @@ import axios from 'axios'
 import { Eye, EyeOff, Mail, Lock, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
+import { useCart } from '../../context/CartContext'
 
 const UserLogin = () => {
   const navigate = useNavigate()
   const { fetchUser, fetchOrders } = useUser()
+  const { fetchCart } = useCart()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -39,9 +41,10 @@ const UserLogin = () => {
       )
       await fetchUser()
       await fetchOrders()
+      await fetchCart()
       console.log(response.data)
       setMessage(response.data.message)
-      //   navigate('/')
+      navigate('/')
     } catch (error) {
       console.log(error)
 

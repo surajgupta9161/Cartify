@@ -81,8 +81,8 @@ const removeFromCart = async (req, res) => {
 }
 
 const updateCartQuantity = async (req, res) => {
-  const { productId, action } = req.params
-  // const { action } = req.body
+  const { productId } = req.params
+  const { action } = req.body || {}
 
   try {
     const user = await userModel.findById(req.user.id)

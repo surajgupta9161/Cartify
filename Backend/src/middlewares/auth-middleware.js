@@ -2,7 +2,7 @@ const useModule = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 
 const authMiddleware = async (req, res, next) => {
-  console.log('Cookies:', req.cookies)
+  // console.log('Cookies:', req.cookies)
   const userToken = req.cookies?.userToken
   if (!userToken) {
     return res
@@ -11,7 +11,7 @@ const authMiddleware = async (req, res, next) => {
   }
   try {
     const decodedToken = jwt.verify(userToken, process.env.JWT_SECRET)
-    console.log('Decoded:', decodedToken)
+    // console.log('Decoded:', decodedToken)
     const findUser = await useModule.findById(decodedToken.id)
     if (!findUser) {
       return res.status(401).json({ message: 'Unauthorized Cookie is invalid' })

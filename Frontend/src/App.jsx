@@ -5,6 +5,7 @@ import UserRegister from './components/UserCredentials/UserRegister'
 import UserLogin from './components/UserCredentials/UserLogin'
 import UserProfile from './components/UserCredentials/UserProfile'
 import { useUser } from './context/UserContext'
+import Cart from './components/Cart/Cart'
 
 const App = () => {
   const { user } = useUser()
@@ -14,6 +15,7 @@ const App = () => {
       <Route path='/register' element={<UserRegister />} />
       <Route path='/login' element={<UserLogin />} />
       <Route path='/profile' element={user ? <UserProfile /> : <UserLogin />} />
+      <Route path='/cart' element={user ? <Cart /> : <UserLogin />} />
     </Routes>
   )
 }
