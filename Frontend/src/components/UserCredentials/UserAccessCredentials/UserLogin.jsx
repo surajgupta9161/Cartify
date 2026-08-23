@@ -2,8 +2,8 @@ import { useState } from 'react'
 import axios from 'axios'
 import { Eye, EyeOff, Mail, Lock, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '../../context/UserContext'
-import { useCart } from '../../context/CartContext'
+import { useUser } from '../../../context/UserContext'
+import { useCart } from '../../../context/CartContext'
 
 const UserLogin = () => {
   const navigate = useNavigate()
