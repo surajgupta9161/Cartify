@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
         }
       )
       setLoading(false)
-      console.log(response.data.cart)
+      // console.log(response.data.cart)
       setCart(response.data.cart)
     } catch (error) {
       setLoading(false)

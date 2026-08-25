@@ -1,8 +1,10 @@
 import { Trash2 } from 'lucide-react'
 import axios from 'axios'
 import { useCart } from '../../context/CartContext'
+import { useUser } from '../../context/UserContext'
 const Trash = ({ id }) => {
   const { fetchCart } = useCart()
+  const { fetchUser } = useUser()
   const handleDelete = async id => {
     console.log('Product Id By trash: ', id)
     try {
@@ -11,6 +13,7 @@ const Trash = ({ id }) => {
         { withCredentials: true }
       )
       if (response.status === 200) {
+        await fetchUser()
         await fetchCart()
       }
     } catch (error) {

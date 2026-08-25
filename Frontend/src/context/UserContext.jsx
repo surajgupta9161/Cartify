@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
       const response = await axios.get('http://localhost:3000/api/auth/me', {
         withCredentials: true
       })
-      console.log(response.data.user)
+      // console.log(response.data.user)
       setUser(response.data.user)
     } catch (error) {
       setLoading(false)
@@ -34,7 +34,7 @@ export const UserProvider = ({ children }) => {
         }
       )
       setLoading(false)
-      console.log(response.data.orders)
+      // console.log(response.data.orders)
       setOrders(response.data.orders)
     } catch (error) {
       setLoading(false)

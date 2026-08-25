@@ -6,6 +6,7 @@ import axios from 'axios'
 import ExtraCartDetails from './ExtraCardDetails'
 import CartItems from './CartItems'
 import OrderNow from './OrderNow'
+import ShopingButton from '../Common/ShopingButton'
 
 const Cart = () => {
   const navigate = useNavigate()
@@ -74,13 +75,7 @@ const Cart = () => {
 
           <p className='text-gray-400 mt-2'>Add some products to your cart.</p>
 
-          <button
-            onClick={() => navigate('/')}
-            className='mt-6 bg-blue-600 hover:bg-blue-700
-            px-6 py-3 rounded-xl cursor-pointer transition'
-          >
-            Start Shopping
-          </button>
+          <ShopingButton />
         </div>
       ) : (
         <>
@@ -127,9 +122,9 @@ const Cart = () => {
               </div>
             </div>
           </div>
+          <OrderNow totalPrice={totalPrice} />
         </>
       )}
-      <OrderNow totalPrice={totalPrice} />
     </div>
   )
 }

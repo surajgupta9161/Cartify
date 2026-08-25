@@ -1,6 +1,7 @@
 import { useProduct } from '../../context/ProductContext'
 import { Star } from 'lucide-react'
 import SearchLoader from '../Loader/SearchLoader'
+import AddToCart from './AddToCart'
 
 const ProductList = () => {
   const { products, loading } = useProduct()
@@ -28,16 +29,7 @@ const ProductList = () => {
             />
 
             {/* Add To Cart */}
-            <button
-              className='absolute bottom-2 right-2
-                bg-white text-pink-600 border border-pink-600
-                px-5 py-1.5 rounded-lg font-semibold
-                hover:bg-pink-50
-                active:scale-95
-                transition cursor-pointer'
-            >
-              ADD
-            </button>
+            <AddToCart productId={product._id} />
           </div>
 
           {/* Product Details */}

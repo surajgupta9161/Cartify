@@ -3,7 +3,7 @@ import Home from './pages/Home'
 import { Routes, Route } from 'react-router-dom'
 import UserRegister from './components/UserCredentials/UserAccessCredentials/UserRegister'
 import UserLogin from './components/UserCredentials/UserAccessCredentials/UserLogin'
-import UserProfile from './components/UserCredentials/UserProfile'
+import UserProfile from './components/UserCredentials/UserProfileCredentials/UserProfile'
 import { useUser } from './context/UserContext'
 import Cart from './components/Cart/Cart'
 
