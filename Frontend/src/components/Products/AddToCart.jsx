@@ -60,7 +60,6 @@ const AddToCart = ({ productId, className = '' }) => {
         }
 
         ${loading ? 'opacity-60 cursor-not-allowed' : ''}
-
         ${className}
       `}
     >

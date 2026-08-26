@@ -117,17 +117,6 @@ const ProductDetails = () => {
           </div>
 
           {/* ADD TO CART */}
-          {/* <button
-            disabled={product.stock === 0}
-            className='mt-auto w-full sm:w-fit flex items-center justify-center gap-2
-            bg-blue-600 hover:bg-blue-700
-            disabled:bg-gray-600 disabled:cursor-not-allowed
-            px-7 py-3 rounded-xl
-            font-medium transition cursor-pointer'
-          >
-            <ShoppingCart size={19} />
-            Add to Cart
-          </button> */}
           <AddToCart
             productId={product._id}
             className='mt-auto w-full sm:w-fit flex items-center justify-center gap-2
