@@ -6,6 +6,7 @@ import UserLogin from './components/UserCredentials/UserAccessCredentials/UserLo
 import UserProfile from './components/UserCredentials/UserProfileCredentials/UserProfile'
 import { useUser } from './context/UserContext'
 import Cart from './components/Cart/Cart'
+import ProductDetails from './components/Products/ProductDetails'
 
 const App = () => {
   const { user } = useUser()
@@ -16,6 +17,7 @@ const App = () => {
       <Route path='/login' element={<UserLogin />} />
       <Route path='/profile' element={user ? <UserProfile /> : <UserLogin />} />
       <Route path='/cart' element={user ? <Cart /> : <UserLogin />} />
+      <Route path='/product/:id' element={<ProductDetails />} />
     </Routes>
   )
 }

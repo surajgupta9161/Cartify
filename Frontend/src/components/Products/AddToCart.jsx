@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { Check } from 'lucide-react'
+import { Check, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { useUser } from '../../context/UserContext'
 
-const AddToCart = ({ productId }) => {
+const AddToCart = ({ productId, className = '' }) => {
   const { cart, fetchCart } = useCart()
   const { fetchUser } = useUser()
   const [loading, setLoading] = useState(false)
@@ -44,10 +44,12 @@ const AddToCart = ({ productId }) => {
 
   return (
     <button
-      onClick={handleCart}
+      onClick={e => {
+        handleCart()
+        e.stopPropagation()
+      }}
       disabled={loading}
       className={`
-        absolute bottom-2 right-2
         rounded-lg font-semibold
         transition active:scale-95
 
@@ -58,6 +60,8 @@ const AddToCart = ({ productId }) => {
         }
 
         ${loading ? 'opacity-60 cursor-not-allowed' : ''}
+
+        ${className}
       `}
     >
       {loading ? (
@@ -68,7 +72,10 @@ const AddToCart = ({ productId }) => {
           Added
         </span>
       ) : (
-        'ADD'
+        <span className='flex items-center gap-1'>
+          <ShoppingCart size={20} />
+          ADD
+        </span>
       )}
     </button>
   )

@@ -2,9 +2,11 @@ import { useProduct } from '../../context/ProductContext'
 import { Star } from 'lucide-react'
 import SearchLoader from '../Loader/SearchLoader'
 import AddToCart from './AddToCart'
+import { useNavigate } from 'react-router-dom'
 
 const ProductList = () => {
   const { products, loading } = useProduct()
+  const navigate = useNavigate()
 
   if (loading) {
     return <SearchLoader />
@@ -13,7 +15,10 @@ const ProductList = () => {
   return (
     <div className='grid grid-cols-2 mt-4 md:grid-cols-4 mb-5 gap-5'>
       {products.map(product => (
-        <div key={product._id}>
+        <div
+          onClick={() => navigate(`/product/${product._id}`)}
+          key={product._id}
+        >
           {/* Image Container */}
           <div className='relative'>
             {/* Price */}
@@ -29,7 +34,10 @@ const ProductList = () => {
             />
 
             {/* Add To Cart */}
-            <AddToCart productId={product._id} />
+            <AddToCart
+              productId={product._id}
+              className='absolute bottom-2 right-2'
+            />
           </div>
 
           {/* Product Details */}
