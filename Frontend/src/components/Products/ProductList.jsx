@@ -3,13 +3,18 @@ import { Star } from 'lucide-react'
 import SearchLoader from '../Loader/SearchLoader'
 import AddToCart from './AddToCart'
 import { useNavigate } from 'react-router-dom'
+import Retry from '../Common/Retry'
 
 const ProductList = () => {
-  const { products, loading } = useProduct()
+  const { products, loading, error, fetchProducts } = useProduct()
   const navigate = useNavigate()
 
   if (loading) {
     return <SearchLoader />
+  }
+
+  if (error) {
+    return <Retry onRetry={fetchProducts} />
   }
 
   return (

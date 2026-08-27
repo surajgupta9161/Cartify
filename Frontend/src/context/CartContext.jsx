@@ -6,13 +6,16 @@ const CartContext = createContext()
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const fetchCart = async () => {
     try {
       setLoading(true)
+      setError(false)
       const response = await axios.get(
         'http://localhost:3000/api/cart/getcart',
         {
-          withCredentials: true
+          withCredentials: true,
+          timeout: 10000
         }
       )
       setLoading(false)
@@ -20,6 +23,7 @@ export const CartProvider = ({ children }) => {
       setCart(response.data.cart)
     } catch (error) {
       setLoading(false)
+      setError(true)
       console.log('Cart fetch error:', error)
     }
   }
@@ -35,7 +39,8 @@ export const CartProvider = ({ children }) => {
         setCart,
         loading,
         setLoading,
-        fetchCart
+        fetchCart,
+        error
       }}
     >
       {children}

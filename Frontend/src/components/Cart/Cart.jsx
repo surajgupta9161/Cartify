@@ -1,4 +1,4 @@
-import { ShoppingCart, ArrowLeft } from 'lucide-react'
+import { ShoppingCart, ArrowLeft, Search } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../context/CartContext'
