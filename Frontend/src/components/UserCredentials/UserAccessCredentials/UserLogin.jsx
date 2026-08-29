@@ -7,9 +7,16 @@ import { useCart } from '../../../context/CartContext'
 
 const UserLogin = () => {
   const navigate = useNavigate()
+
   const { fetchUser, fetchOrders } = useUser()
   const { fetchCart } = useCart()
+
   const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [errors, setErrors] = useState({
     email: '',
     password: ''
   })
@@ -19,14 +26,48 @@ const UserLogin = () => {
   const [message, setMessage] = useState('')
 
   const handleChange = e => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    const { name, value } = e.target
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+
+    setErrors(prev => ({
+      ...prev,
+      [name]: ''
+    }))
+
+    setMessage('')
+  }
+
+  const validateForm = () => {
+    const newErrors = {
+      email: '',
+      password: ''
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!emailRegex.test(formData.email.trim())) {
+      newErrors.email = 'Enter a valid email address'
+    }
+
+    if (!formData.password.trim()) {
+      newErrors.password = 'Password is required'
+    }
+
+    setErrors(newErrors)
+
+    return !newErrors.email && !newErrors.password
   }
 
   const handleSubmit = async e => {
     e.preventDefault()
+
+    if (!validateForm()) return
 
     try {
       setLoading(true)
@@ -34,17 +75,24 @@ const UserLogin = () => {
 
       const response = await axios.post(
         'http://localhost:3000/api/auth/login',
-        formData,
+        {
+          email: formData.email.trim(),
+          password: formData.password
+        },
         {
           withCredentials: true
         }
       )
+
       await fetchUser()
       await fetchOrders()
       await fetchCart()
+
       console.log(response.data)
+
       setMessage(response.data.message)
-      navigate('/')
+
+      navigate(-1)
     } catch (error) {
       console.log(error)
 
@@ -55,63 +103,87 @@ const UserLogin = () => {
   }
 
   return (
-    <div className='min-h-[80vh] flex items-center justify-center '>
+    <div className='min-h-[80vh] flex items-center justify-center'>
       <div className='w-full max-w-md bg-[#2d2c2c] p-8 rounded-2xl shadow-xl border border-gray-700 relative'>
-        <button onClick={() => navigate('/')}>
+        <button type='button' onClick={() => navigate('/')}>
           <X
             size={24}
             className='cursor-pointer absolute top-5 right-5 hover:text-red-500 transition'
           />
         </button>
+
         <h1 className='text-3xl font-bold text-center mb-2'>Welcome Back</h1>
 
         <p className='text-gray-400 text-center mb-7'>
           Login to your Cartify account
         </p>
 
-        <form onSubmit={handleSubmit} className='space-y-5'>
-          <div className='relative'>
-            <Mail
-              size={19}
-              className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'
-            />
+        <form onSubmit={handleSubmit} noValidate className='space-y-5'>
+          {/* EMAIL */}
+          <div>
+            <div className='relative'>
+              <Mail
+                size={19}
+                className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'
+              />
 
-            <input
-              type='email'
-              name='email'
-              value={formData.email}
-              onChange={handleChange}
-              placeholder='Enter your email'
-              className='w-full bg-[#242323] border border-gray-600 rounded-xl py-3 pl-11 pr-4 outline-none focus:border-blue-500'
-              required
-            />
+              <input
+                type='email'
+                name='email'
+                value={formData.email}
+                onChange={handleChange}
+                placeholder='Enter your email'
+                className={`w-full bg-[#242323] border rounded-xl py-3 pl-11 pr-4 outline-none transition ${
+                  errors.email
+                    ? 'border-red-500'
+                    : 'border-gray-600 focus:border-blue-500'
+                }`}
+              />
+            </div>
+
+            {errors.email && (
+              <p className='text-red-400 text-sm mt-1 ml-1'>{errors.email}</p>
+            )}
           </div>
 
-          <div className='relative'>
-            <Lock
-              size={19}
-              className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'
-            />
+          {/* PASSWORD */}
+          <div>
+            <div className='relative'>
+              <Lock
+                size={19}
+                className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'
+              />
 
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name='password'
-              value={formData.password}
-              onChange={handleChange}
-              placeholder='Enter your password'
-              className='w-full bg-[#242323] border border-gray-600 rounded-xl py-3 pl-11 pr-12 outline-none focus:border-blue-500'
-              required
-            />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name='password'
+                value={formData.password}
+                onChange={handleChange}
+                placeholder='Enter your password'
+                className={`w-full bg-[#242323] border rounded-xl py-3 pl-11 pr-12 outline-none transition ${
+                  errors.password
+                    ? 'border-red-500'
+                    : 'border-gray-600 focus:border-blue-500'
+                }`}
+              />
 
-            <button
-              type='button'
-              onClick={() => setShowPassword(!showPassword)}
-              className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400'
-            >
-              {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
-            </button>
+              <button
+                type='button'
+                onClick={() => setShowPassword(prev => !prev)}
+                className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer'
+              >
+                {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
+              </button>
+            </div>
+
+            {errors.password && (
+              <p className='text-red-400 text-sm mt-1 ml-1'>
+                {errors.password}
+              </p>
+            )}
           </div>
 
+          {/* FORGOT PASSWORD */}
           <div className='text-right'>
             <span
               onClick={() => navigate('/forgot-password')}
@@ -121,14 +193,16 @@ const UserLogin = () => {
             </span>
           </div>
 
+          {/* LOGIN BUTTON */}
           <button
             type='submit'
             disabled={loading}
-            className='w-full bg-blue-600 cursor-pointer hover:bg-blue-700 transition py-3 rounded-xl font-semibold disabled:opacity-60'
+            className='w-full bg-blue-600 cursor-pointer hover:bg-blue-700 transition py-3 rounded-xl font-semibold disabled:opacity-60 disabled:cursor-not-allowed'
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
 
+          {/* BACKEND MESSAGE */}
           {message && (
             <p className='text-center text-sm text-yellow-400'>{message}</p>
           )}

@@ -1,6 +1,6 @@
 import { useProduct } from '../../context/ProductContext'
 import { Star } from 'lucide-react'
-import SearchLoader from '../Loader/SearchLoader'
+import SearchLoader from '../Common/SearchLoader'
 import AddToCart from './AddToCart'
 import { useNavigate } from 'react-router-dom'
 import Retry from '../Common/Retry'

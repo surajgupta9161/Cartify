@@ -7,17 +7,26 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   const fetchUser = async () => {
     try {
       setLoading(true)
+      setError(false)
       const response = await axios.get('http://localhost:3000/api/auth/me', {
-        withCredentials: true
+        withCredentials: true,
+        timeout: 10000
       })
-      // console.log(response.data.user)
       setUser(response.data.user)
+      return response.data.user
     } catch (error) {
-      setLoading(false)
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        // user actually logged in nahi hai
+        setUser(null)
+      } else {
+        // network error / server down / timeout
+        setError(true)
+      }
       console.log('User fetch error:', error)
     } finally {
       setLoading(false)
@@ -27,26 +36,35 @@ export const UserProvider = ({ children }) => {
   const fetchOrders = async () => {
     try {
       setLoading(true)
+      setError(false)
       const response = await axios.get(
         'http://localhost:3000/api/order/myorders',
         {
-          withCredentials: true
+          withCredentials: true,
+          timeout: 10000
         }
       )
       setLoading(false)
       // console.log(response.data.orders)
       setOrders(response.data.orders)
     } catch (error) {
+      setOrders([])
+
       setLoading(false)
-      console.log('Orders fetch error:', error)
+      console.log('Order fetch error:', error)
       setOrders([])
     }
   }
 
   useEffect(() => {
     fetchUser()
-    fetchOrders()
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      fetchOrders()
+    }
+  }, [user])
 
   return (
     <UserContext.Provider
@@ -57,9 +75,9 @@ export const UserProvider = ({ children }) => {
         setLoading,
         orders,
         setOrders,
-        setUser,
         fetchOrders,
-        fetchUser
+        fetchUser,
+        error
       }}
     >
       {children}

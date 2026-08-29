@@ -11,19 +11,15 @@ import {
 } from 'lucide-react'
 
 import { useUser } from '../../../context/UserContext'
-import { useNavigate } from 'react-router-dom'
 import UserLogout from '../UserAccessCredentials/UserLogout'
 import ProfileDetails from './ProlfieDetails'
 import Address from './Address'
 import Settings from './Settings'
 import BackButton from '../../Common/BackButton'
-import ShopingButton from '../../Common/ShopingButton'
 import Orders from './Orders'
 
 const UserProfile = () => {
-  const { user, orders } = useUser()
-
-  const navigate = useNavigate()
+  const { user, orders, error, loading } = useUser()
 
   return (
     <div className='min-h-screen py-8'>

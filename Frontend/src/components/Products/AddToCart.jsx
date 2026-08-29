@@ -3,15 +3,21 @@ import { Check, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { useUser } from '../../context/UserContext'
+import { useNavigate } from 'react-router-dom'
 
 const AddToCart = ({ productId, className = '' }) => {
   const { cart, fetchCart } = useCart()
-  const { fetchUser } = useUser()
+  const { fetchUser, user } = useUser()
   const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   const isAdded = cart?.some(item => item.product?._id === productId)
 
   const handleCart = async () => {
+    if (!user) {
+      navigate('/login')
+    }
     if (loading) return
 
     try {
