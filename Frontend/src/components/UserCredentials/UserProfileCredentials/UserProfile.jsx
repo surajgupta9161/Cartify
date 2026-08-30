@@ -1,14 +1,4 @@
-import {
-  User,
-  Mail,
-  MapPin,
-  LogOut,
-  Package,
-  CalendarDays,
-  CreditCard,
-  PackageOpen,
-  ArrowLeft
-} from 'lucide-react'
+import { User, Mail, Package } from 'lucide-react'
 
 import { useUser } from '../../../context/UserContext'
 import UserLogout from '../UserAccessCredentials/UserLogout'
@@ -19,7 +9,7 @@ import BackButton from '../../Common/BackButton'
 import Orders from './Orders'
 
 const UserProfile = () => {
-  const { user, orders, error, loading } = useUser()
+  const { user, orders } = useUser()
 
   return (
     <div className='min-h-screen py-8'>

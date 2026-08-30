@@ -1,35 +1,20 @@
-import Home from './pages/Home'
+import HomePage from './pages/HomePage'
 import { Routes, Route } from 'react-router-dom'
 import UserRegister from './components/UserCredentials/UserAccessCredentials/UserRegister'
 import UserLogin from './components/UserCredentials/UserAccessCredentials/UserLogin'
-import UserProfile from './components/UserCredentials/UserProfileCredentials/UserProfile'
-import Cart from './components/Cart/Cart'
 import ProductDetails from './components/Products/ProductDetails'
-import ProtectedRoute from './components/Common/ProtectedRoute'
 import PageNotFound from './components/Common/PageNotFound'
+import ProfilePage from './pages/ProfilePage'
+import CartPage from './pages/CartPage'
 
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
+      <Route path='/' element={<HomePage />} />
       <Route path='/register' element={<UserRegister />} />
       <Route path='/login' element={<UserLogin />} />
-      <Route
-        path='/profile'
-        element={
-          <ProtectedRoute>
-            <UserProfile />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path='/cart'
-        element={
-          <ProtectedRoute>
-            <Cart />
-          </ProtectedRoute>
-        }
-      />
+      <Route path='/profile' element={<ProfilePage />} />
+      <Route path='/cart' element={<CartPage />} />
       <Route path='/product/:id' element={<ProductDetails />} />
       <Route path='*' element={<PageNotFound />} />
     </Routes>
