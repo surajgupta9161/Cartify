@@ -1,6 +1,18 @@
 import { RefreshCw, WifiOff } from 'lucide-react'
+import { useUser } from '../../context/UserContext'
+import { useCart } from '../../context/CartContext'
 
 const Retry = ({ onRetry }) => {
+  const { fetchUser, fetchOrders } = useUser()
+  const { fetchCart } = useCart()
+
+  const handleRetry = async () => {
+    const userData = await fetchUser()
+
+    if (userData) {
+      await Promise.all([fetchCart(), fetchOrders()])
+    }
+  }
   return (
     <div className='min-h-100 flex flex-col items-center justify-center gap-3 text-center'>
       <WifiOff size={45} className='text-gray-400' />
@@ -12,7 +24,7 @@ const Retry = ({ onRetry }) => {
       </p>
 
       <button
-        onClick={onRetry}
+        onClick={onRetry || handleRetry}
         className='flex items-center gap-2 px-5 py-2
         bg-blue-600 hover:bg-blue-700
         text-white rounded-lg
