@@ -134,6 +134,22 @@ const resetPassword = async (req, res) => {
     user.resetPasswordOtpVerified = false
     user.resetPasswordOtpVerifiedExpires = null
     await user.save()
+    await sendMail(
+      email,
+      'Cartify - Password Reset Successful',
+      `Hello,
+      
+            Your Cartify account password has been reset successfully.
+
+            You can now log in to your account using your new password.
+
+            If you did not make this change, please contact our support team immediately and secure your account.
+
+            For your security, never share your password with anyone.
+
+            Thanks,
+            Cartify Team`
+    )
     res.status(200).json({ message: 'Password reset successfully' })
   } catch (error) {
     res

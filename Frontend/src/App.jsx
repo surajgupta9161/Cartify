@@ -7,6 +7,9 @@ import PageNotFound from './components/Common/PageNotFound'
 import ProfilePage from './pages/ProfilePage'
 import CartPage from './pages/CartPage'
 import VerifyOtp from './pages/Auth/VerifyOtp'
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
+import VerifyResetOtp from './pages/ForgotPassword/VerifyResetOtp'
+import ResetPassword from './pages/ForgotPassword/ResetPassword'
 
 const App = () => {
   return (
@@ -17,6 +20,11 @@ const App = () => {
         <Route path='verify-otp' element={<VerifyOtp />} />
       </Route>
       <Route path='/login' element={<UserLogin />} />
+      <Route path='/forgot-password'>
+        <Route index element={<ForgotPassword />} />
+        <Route path='verify-reset-otp' element={<VerifyResetOtp />} />
+        <Route path='reset-password' element={<ResetPassword />} />
+      </Route>
       <Route path='/profile' element={<ProfilePage />} />
       <Route path='/cart' element={<CartPage />} />
       <Route path='/product/:id' element={<ProductDetails />} />
