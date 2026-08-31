@@ -1,7 +1,7 @@
 import { User, Mail, Package } from 'lucide-react'
 
 import { useUser } from '../../../context/UserContext'
-import UserLogout from '../UserAccessCredentials/UserLogout'
+import UserLogout from '../../Auth/UserLogout'
 import ProfileDetails from './ProlfieDetails'
 import Address from './Address'
 import Settings from './Settings'

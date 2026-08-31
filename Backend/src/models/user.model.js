@@ -27,12 +27,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: 'user'
   },
-  otp: {
-    type: String
-  },
-  otpExpire: {
-    type: Date
-  },
   isverified: {
     type: Boolean,
     default: false
@@ -50,7 +44,27 @@ const userSchema = new mongoose.Schema({
         min: 1
       }
     }
-  ]
+  ],
+  resetPasswordOtp: {
+    type: String,
+    default: null
+  },
+  resetPasswordOtpExpires: {
+    type: Date,
+    default: null
+  },
+  resetPasswordOtpResendAfter: {
+    type: Date,
+    default: null
+  },
+  resetPasswordOtpVerified: {
+    type: Boolean,
+    default: false
+  },
+  resetPasswordOtpVerifiedExpires: {
+    type: Date,
+    default: null
+  }
 })
 
 const userModel = mongoose.model('User', userSchema)

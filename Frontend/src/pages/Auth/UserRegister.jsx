@@ -82,6 +82,8 @@ const UserRegister = () => {
       setLoading(true)
       setMessage('')
 
+      const email = formData.email.trim()
+
       const response = await axios.post(
         'http://localhost:3000/api/auth/register',
         {
@@ -104,7 +106,11 @@ const UserRegister = () => {
         password: ''
       })
 
-      navigate('/')
+      navigate('/register/verify-otp', {
+        state: {
+          email
+        }
+      })
     } catch (error) {
       console.log(error)
 

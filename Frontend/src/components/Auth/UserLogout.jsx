@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '../../../context/UserContext'
+import { useUser } from '../../context/UserContext'
 import { useState } from 'react'
 import { LogOut } from 'lucide-react'
 import axios from 'axios'

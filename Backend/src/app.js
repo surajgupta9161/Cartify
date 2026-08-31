@@ -8,6 +8,7 @@ const orderRoute = require('./routes/order.route')
 const cartRoute = require('./routes/cart.route')
 const paymentRoute = require('./routes/payment.route')
 const analyticsRoute = require('./routes/analytics.route')
+const resetPasswordRoute = require('./routes/resetPassword.route')
 
 app.use(cookieParser())
 app.use(
@@ -43,6 +44,11 @@ app.use('/api/order', orderRoute)
  * -Payment Route
  */
 app.use('/api/payment', paymentRoute)
+
+/**
+ * -Reset Password Route
+ */
+app.use('/api/auth', resetPasswordRoute)
 
 /**
  * -Analytics Route
