@@ -1,7 +1,7 @@
-import axios from 'axios'
 import { ShieldCheck, ArrowLeft } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import api from '../../api/axios'
 
 const VerifyResetOtp = () => {
   const [otp, setOtp] = useState('')
@@ -48,16 +48,10 @@ const VerifyResetOtp = () => {
     try {
       setLoading(true)
 
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/verifyresetpasswordotp',
-        {
-          email,
-          otp
-        },
-        {
-          withCredentials: true
-        }
-      )
+      const response = await api.post('/api/auth/verifyresetpasswordotp', {
+        email,
+        otp
+      })
 
       setMessage(response.data.message)
 
@@ -95,13 +89,7 @@ const VerifyResetOtp = () => {
       setError('')
       setMessage('')
 
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/resetpasswordotp',
-        { email },
-        {
-          withCredentials: true
-        }
-      )
+      const response = await api.post('/api/auth/resetpasswordotp', { email })
 
       setMessage(response.data.message)
 

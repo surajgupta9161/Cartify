@@ -2,11 +2,11 @@ import { ShoppingCart, ArrowLeft, Search } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../context/CartContext'
-import axios from 'axios'
 import ExtraCartDetails from './ExtraCardDetails'
 import CartItems from './CartItems'
 import OrderNow from './OrderNow'
 import ShopingButton from '../Common/ShopingButton'
+import api from '../../api/axios'
 
 const Cart = () => {
   const navigate = useNavigate()
@@ -27,13 +27,10 @@ const Cart = () => {
 
   const updateQuantity = async (productId, action) => {
     try {
-      await axios.patch(
-        `http://localhost:3000/api/cart/updatecartquantity/${productId}`,
+      await api.patch(
+        `/api/cart/updatecartquantity/${productId}`,
         {
           action
-        },
-        {
-          withCredentials: true
         }
       )
 

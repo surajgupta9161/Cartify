@@ -1,9 +1,9 @@
-import axios from 'axios'
 import { Check, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { useUser } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import api from '../../api/axios'
 
 const AddToCart = ({ productId, className = '' }) => {
   const { cart, fetchCart } = useCart()
@@ -24,20 +24,9 @@ const AddToCart = ({ productId, className = '' }) => {
       setLoading(true)
 
       if (isAdded) {
-        await axios.delete(
-          `http://localhost:3000/api/cart/removefromcart/${productId}`,
-          {
-            withCredentials: true
-          }
-        )
+        await api.delete(`/api/cart/removefromcart/${productId}`)
       } else {
-        await axios.post(
-          'http://localhost:3000/api/cart/addtocart',
-          { productId },
-          {
-            withCredentials: true
-          }
-        )
+        await api.post('/api/cart/addtocart', { productId })
       }
       await fetchUser()
       await fetchCart()

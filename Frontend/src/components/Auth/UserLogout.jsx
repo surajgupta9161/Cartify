@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
 import { useState } from 'react'
 import { LogOut } from 'lucide-react'
-import axios from 'axios'
+import api from '../../api/axios'
 
 const UserLogout = () => {
   const [showLogoutWarning, setShowLogoutWarning] = useState(false)
@@ -13,11 +13,7 @@ const UserLogout = () => {
   const handleLogout = async () => {
     try {
       setLoading(true)
-      const res = await axios.post(
-        'http://localhost:3000/api/auth/logout',
-        {},
-        { withCredentials: true }
-      )
+      const res = await api.post('/api/auth/logout')
       setLoading(false)
       if (res.status === 200) {
         setUser(null)

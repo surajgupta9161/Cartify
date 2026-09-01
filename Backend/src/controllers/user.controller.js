@@ -111,18 +111,18 @@ const login = async (req, res) => {
       expiresIn: '3d'
     })
 
-    // res.cookie('userToken', userToken, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: 'none',
-    //   maxAge: 3 * 24 * 60 * 60 * 1000
-    // })
     res.cookie('userToken', userToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'none',
       maxAge: 3 * 24 * 60 * 60 * 1000
     })
+    // res.cookie('userToken', userToken, {
+    //   httpOnly: true,
+    //   secure: false,
+    //   sameSite: 'lax',
+    //   maxAge: 3 * 24 * 60 * 60 * 1000
+    // })
     return res.status(200).json({ message: 'User Login Successfull' })
   } catch (error) {
     return res
@@ -137,16 +137,16 @@ const login = async (req, res) => {
  */
 const logout = async (req, res) => {
   try {
-    // res.clearCookie('userToken', {
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: 'none'
-    // })
     res.clearCookie('userToken', {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax'
+      secure: true,
+      sameSite: 'none'
     })
+    // res.clearCookie('userToken', {
+    //   httpOnly: true,
+    //   secure: false,
+    //   sameSite: 'lax'
+    // })
     return res.status(200).json({ message: 'User Logout Successfull' })
   } catch (error) {
     return res

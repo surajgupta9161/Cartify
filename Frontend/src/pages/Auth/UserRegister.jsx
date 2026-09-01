@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import axios from 'axios'
 import { Eye, EyeOff, User, Mail, Lock, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import api from '../../api/axios'
 
 const UserRegister = () => {
   const [formData, setFormData] = useState({
@@ -84,17 +84,11 @@ const UserRegister = () => {
 
       const email = formData.email.trim()
 
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/register',
-        {
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          password: formData.password
-        },
-        {
-          withCredentials: true
-        }
-      )
+      const response = await api.post('/api/auth/register', {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        password: formData.password
+      })
 
       console.log(response.data)
 

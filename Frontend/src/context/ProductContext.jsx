@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../api/axios'
 
 const ProductContext = createContext()
 
@@ -13,13 +13,7 @@ export const ProductProvider = ({ children }) => {
     try {
       setLoading(true)
       setError(false)
-      const response = await axios.get(
-        `http://localhost:3000/api/product/?category=${activeCategory}`,
-        {
-          withCredentials: true,
-          timeout: 10000
-        }
-      )
+      const response = await api.get(`/api/product/?category=${activeCategory}`)
       let productdata = response.data.products
       // console.log(productdata)
       setProducts(productdata)

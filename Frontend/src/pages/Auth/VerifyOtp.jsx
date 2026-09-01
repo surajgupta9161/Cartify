@@ -4,6 +4,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { ShieldCheck, ArrowLeft } from 'lucide-react'
 import { useUser } from '../../context/UserContext'
 import { useCart } from '../../context/CartContext'
+import api from '../../api/axios'
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState('')
@@ -61,16 +62,10 @@ const VerifyOtp = () => {
       setLoading(true)
       setMessage('')
 
-      await axios.post(
-        'http://localhost:3000/api/auth/verifyotp',
-        {
-          email,
-          otp
-        },
-        {
-          withCredentials: true
-        }
-      )
+      await api.post('/api/auth/verifyotp', {
+        email,
+        otp
+      })
 
       const userData = await fetchUser()
 
@@ -95,15 +90,9 @@ const VerifyOtp = () => {
       setResendLoading(true)
       setMessage('')
 
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/resendotp',
-        {
-          email
-        },
-        {
-          withCredentials: true
-        }
-      )
+      const response = await axios.post('/api/auth/resendotp', {
+        email
+      })
 
       setMessage(response.data.message || 'OTP resent successfully')
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { ArrowLeft, Star, ShoppingCart } from 'lucide-react'
+import { ArrowLeft, Star } from 'lucide-react'
 import AddToCart from './AddToCart'
+import api from '../../api/axios'
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -15,9 +15,7 @@ const ProductDetails = () => {
     try {
       setLoading(true)
 
-      const response = await axios.get(
-        `http://localhost:3000/api/product/${id}`
-      )
+      const response = await api.get(`/api/product/${id}`)
 
       setProduct(response.data.product)
     } catch (error) {

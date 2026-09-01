@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import axios from 'axios'
 import { Eye, EyeOff, Mail, Lock, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
 import { useCart } from '../../context/CartContext'
+import api from '../../api/axios'
 
 const UserLogin = () => {
   const navigate = useNavigate()
@@ -73,16 +73,10 @@ const UserLogin = () => {
       setLoading(true)
       setMessage('')
 
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/login',
-        {
-          email: formData.email.trim(),
-          password: formData.password
-        },
-        {
-          withCredentials: true
-        }
-      )
+      const response = await api.post('/api/auth/login', {
+        email: formData.email.trim(),
+        password: formData.password
+      })
 
       await fetchUser()
       await fetchOrders()

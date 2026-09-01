@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react'
 import axios from 'axios'
+import api from '../api/axios'
 
 const UserContext = createContext()
 
@@ -13,10 +14,7 @@ export const UserProvider = ({ children }) => {
     try {
       setLoading(true)
       setError(false)
-      const response = await axios.get('http://localhost:3000/api/auth/me', {
-        withCredentials: true,
-        timeout: 10000
-      })
+      const response = await api.get('/api/auth/me')
       setUser(response.data.user)
       return response.data.user
     } catch (error) {
@@ -37,13 +35,7 @@ export const UserProvider = ({ children }) => {
     try {
       setLoading(true)
       setError(false)
-      const response = await axios.get(
-        'http://localhost:3000/api/order/myorders',
-        {
-          withCredentials: true,
-          timeout: 10000
-        }
-      )
+      const response = await api.get('/api/order/myorders')
       setLoading(false)
       // console.log(response.data.orders)
       setOrders(response.data.orders)

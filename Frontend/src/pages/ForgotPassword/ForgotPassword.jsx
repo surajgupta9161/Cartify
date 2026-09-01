@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import axios from 'axios'
 import { Mail, ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import api from '../../api/axios'
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('')
@@ -24,15 +24,9 @@ const ForgotPassword = () => {
       setError('')
       setMessage('')
 
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/resetpasswordotp',
-        {
-          email: email.trim().toLowerCase()
-        },
-        {
-          withCredentials: true
-        }
-      )
+      const response = await api.post('/api/auth/resetpasswordotp', {
+        email: email.trim().toLowerCase()
+      })
 
       setMessage(response.data.message)
 

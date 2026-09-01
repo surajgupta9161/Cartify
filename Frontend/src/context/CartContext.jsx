@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../api/axios'
 
 const CartContext = createContext()
 
@@ -11,13 +11,7 @@ export const CartProvider = ({ children }) => {
     try {
       setLoading(true)
       setError(false)
-      const response = await axios.get(
-        'http://localhost:3000/api/cart/getcart',
-        {
-          withCredentials: true,
-          timeout: 10000
-        }
-      )
+      const response = await api.get('/api/cart/getcart')
       setLoading(false)
       // console.log(response.data.cart)
       setCart(response.data.cart)
