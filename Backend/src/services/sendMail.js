@@ -39,7 +39,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const sendMail = async (to, subject, text) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Cartify <suraj666189@gmail.com>',
+      from: 'Cartify <onboarding@resend.dev>',
       to,
       subject,
       text
