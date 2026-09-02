@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
 
 const AddToCart = ({ productId, className = '' }) => {
-  const { cart, fetchCart } = useCart()
+  const { cart, setCart, fetchCart } = useCart()
   const { fetchUser, user } = useUser()
   const [loading, setLoading] = useState(false)
 
@@ -17,21 +17,47 @@ const AddToCart = ({ productId, className = '' }) => {
   const handleCart = async () => {
     if (!user) {
       navigate('/login')
+      return
     }
+
     if (loading) return
+
+    const previousCart = cart
+
+    // 1. PEHLE UI UPDATE
+    if (isAdded) {
+      setCart(prev => prev.filter(item => item.product?._id !== productId))
+    } else {
+      setCart(prev => [
+        ...prev,
+        {
+          product: {
+            _id: productId
+          },
+          quantity: 1
+        }
+      ])
+    }
 
     try {
       setLoading(true)
 
+      // 2. USKE BAAD API CALL
       if (isAdded) {
         await api.delete(`/api/cart/removefromcart/${productId}`)
       } else {
-        await api.post('/api/cart/addtocart', { productId })
+        await api.post('/api/cart/addtocart', {
+          productId
+        })
       }
-      await fetchUser()
-      await fetchCart()
+
+      // 3. SERVER SE FINAL SYNC
+      await Promise.all([fetchUser(), fetchCart()])
     } catch (error) {
-      console.log(error)
+      console.log('Cart update failed:', error)
+
+      // 4. API FAIL HUI TO UI WAPAS PURANI STATE ME
+      setCart(previousCart)
     } finally {
       setLoading(false)
     }
@@ -40,8 +66,8 @@ const AddToCart = ({ productId, className = '' }) => {
   return (
     <button
       onClick={e => {
-        handleCart()
         e.stopPropagation()
+        handleCart()
       }}
       disabled={loading}
       className={`
@@ -54,13 +80,11 @@ const AddToCart = ({ productId, className = '' }) => {
             : 'bg-white text-pink-600 border border-pink-600 px-5 py-1.5 hover:bg-pink-50 cursor-pointer'
         }
 
-        ${loading ? 'opacity-60 cursor-not-allowed' : ''}
+        ${loading ? 'opacity-70 cursor-not-allowed' : ''}
         ${className}
       `}
     >
-      {loading ? (
-        '...'
-      ) : isAdded ? (
+      {isAdded ? (
         <span className='flex items-center gap-1'>
           <Check size={14} />
           Added
