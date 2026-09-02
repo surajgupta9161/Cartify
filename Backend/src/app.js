@@ -13,7 +13,7 @@ const resetPasswordRoute = require('./routes/resetPassword.route')
 app.use(cookieParser())
 app.use(
   cors({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173', 'https://cartify-mvcz.onrender.com'],
     credentials: true
   })
 )
