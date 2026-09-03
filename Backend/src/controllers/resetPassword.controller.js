@@ -30,7 +30,9 @@ const resetPasswordOtp = async (req, res) => {
     user.resetPasswordOtpResendAfter = Date.now() + 1 * 60 * 1000
     user.resetPasswordOtpVerified = false
     await user.save()
-    await sendMail(
+    console.log('OTP Svaed In to DB: ', OTP)
+    console.log('Try to send MAIL: ', email)
+    const response = await sendMail(
       email,
       'Cartify - Reset Password OTP',
       `Hello,
@@ -46,8 +48,10 @@ const resetPasswordOtp = async (req, res) => {
         Thanks,
         Cartify Team`
     )
+    console.log('Mail response', response)
     res.status(200).json({ message: 'OTP sent successfully' })
   } catch (error) {
+    console.log('RESET PASSWORD OTP ERROR: ', error)
     res
       .status(500)
       .json({ message: 'Reset Password Failed', error: error.message })
