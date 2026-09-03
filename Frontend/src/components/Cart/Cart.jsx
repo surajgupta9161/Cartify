@@ -1,4 +1,4 @@
-import { ShoppingCart, ArrowLeft, Search } from 'lucide-react'
+import { ShoppingCart, ArrowLeft } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../context/CartContext'
@@ -6,12 +6,11 @@ import ExtraCartDetails from './ExtraCardDetails'
 import CartItems from './CartItems'
 import OrderNow from './OrderNow'
 import ShopingButton from '../Common/ShopingButton'
-import api from '../../api/axios'
 
 const Cart = () => {
   const navigate = useNavigate()
 
-  const { cart, fetchCart } = useCart()
+  const { cart } = useCart()
 
   const cartProducts = cart || []
 
@@ -23,21 +22,6 @@ const Cart = () => {
     assigned: true,
     name: 'Rahul Sharma',
     phone: '+91 98765 43210'
-  }
-
-  const updateQuantity = async (productId, action) => {
-    try {
-      await api.patch(
-        `/api/cart/updatecartquantity/${productId}`,
-        {
-          action
-        }
-      )
-
-      await fetchCart()
-    } catch (error) {
-      console.log('Update quantity error:', error)
-    }
   }
 
   return (
@@ -78,20 +62,17 @@ const Cart = () => {
         <>
           {/* MAIN */}
           <div className='grid lg:grid-cols-[1fr_360px] gap-8 pb-8'>
-            {/* ================= CART PRODUCTS ================= */}
+            {/* CART PRODUCTS */}
             <div
-              className='   space-y-4
-                lg:h-[75vh]
-                lg:overflow-y-auto
-                lg:overscroll-contain
-                lg:pr-2
-                [&::-webkit-scrollbar]:hidden
-                scrollbar-none'
+              className='space-y-4
+              lg:h-[75vh]
+              lg:overflow-y-auto
+              lg:overscroll-contain
+              lg:pr-2
+              [&::-webkit-scrollbar]:hidden
+              scrollbar-none'
             >
-              <CartItems
-                cartProducts={cartProducts}
-                updateQuantity={updateQuantity}
-              />
+              <CartItems cartProducts={cartProducts} />
 
               {/* MOBILE EXTRA CARDS */}
               <div className='lg:hidden space-y-4 pt-2'>
@@ -103,7 +84,7 @@ const Cart = () => {
               </div>
             </div>
 
-            {/* ================= DESKTOP RIGHT SIDE ================= */}
+            {/* DESKTOP RIGHT SIDE */}
             <div className='hidden lg:block'>
               <div
                 className='sticky top-24 space-y-4
@@ -119,6 +100,7 @@ const Cart = () => {
               </div>
             </div>
           </div>
+
           <OrderNow totalPrice={totalPrice} />
         </>
       )}
