@@ -91,7 +91,10 @@ const VerifyResetOtp = () => {
 
       const response = await api.post('/api/auth/resetpasswordotp', { email })
 
-      setMessage(response.data.message)
+      setMessage(
+        response.data.message +
+          '. Please check spam also if not found in inbox.'
+      )
 
       // OTP resend hone ke baad fir 60 sec wait
       setTimer(60)

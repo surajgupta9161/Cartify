@@ -28,7 +28,10 @@ const ForgotPassword = () => {
         email: email.trim().toLowerCase()
       })
 
-      setMessage(response.data.message)
+      setMessage(
+        response.data.message +
+          '. Please check spam also if not found in inbox.'
+      )
 
       navigate('/forgot-password/verify-reset-otp', {
         state: {
