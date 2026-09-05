@@ -78,6 +78,8 @@ const register = async (req, res) => {
     })
   } catch (error) {
     await pendingUserModel.deleteOne({ email })
+    console.log('REGISTER ERROR:', error)
+    console.log('REGISTER ERROR MESSAGE:', error.message)
     return res.status(500).json({
       message:
         'Registration failed, OTP email could not be sent. Please try again.',
