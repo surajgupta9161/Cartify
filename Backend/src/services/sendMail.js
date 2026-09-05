@@ -53,7 +53,11 @@ const sendMail = async (to, subject, text) => {
     console.log('MAIL SENT:', response)
     return response
   } catch (error) {
-    console.log('BREVO MAIL ERROR:', error)
+    console.log('BREVO STATUS:', error.statusCode)
+    console.log('BREVO MESSAGE:', error.message)
+    console.log('BREVO BODY:', error.body)
+    console.log('FULL ERROR:', error)
+
     throw error
   }
 }
