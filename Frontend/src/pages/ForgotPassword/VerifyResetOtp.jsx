@@ -130,9 +130,17 @@ const VerifyResetOtp = () => {
           Enter the 6 digit OTP sent to
         </p>
 
-        <p className='text-sm text-blue-400 text-center mt-1 mb-6'>
+        <p className='text-sm text-blue-400 text-center mt-1 mb-2'>
           {email || 'your email'}
         </p>
+
+        <span className='block mt-3 text-gray-500 text-sm mb-3'>
+          Didn't receive the code? Please check your
+          <span className='text-yellow-400 font-medium'> Spam </span>
+          or
+          <span className='text-yellow-400 font-medium'> Junk </span>
+          folder.
+        </span>
 
         {error && (
           <div className='mb-4 px-4 py-3 rounded-lg bg-red-500/10 text-red-400 text-sm'>

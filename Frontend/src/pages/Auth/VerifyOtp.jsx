@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { ShieldCheck, ArrowLeft } from 'lucide-react'
 import { useUser } from '../../context/UserContext'
@@ -90,11 +89,14 @@ const VerifyOtp = () => {
       setResendLoading(true)
       setMessage('')
 
-      const response = await axios.post('/api/auth/resendotp', {
+      const response = await api.post('/api/auth/resendotp', {
         email
       })
 
-      setMessage(response.data.message || 'OTP resent successfully')
+      setMessage(
+        response.data.message ||
+          'OTP resent successfully, please also check spam if not found in inbox.'
+      )
 
       // timer dobara 1 minute se start
       setTimer(60)
@@ -129,9 +131,18 @@ const VerifyOtp = () => {
 
         <h1 className='text-3xl font-bold text-center mb-2'>Verify OTP</h1>
 
-        <p className='text-gray-400 text-center mb-7'>
-          Enter the OTP sent to
-          <span className='text-white block mt-1'>{email || 'your email'}</span>
+        <p className='text-gray-400 text-center mb-7 text-sm sm:text-base leading-relaxed'>
+          We've sent a verification code to
+          <span className='block text-white font-medium mt-1'>
+            {email || 'your email address'}
+          </span>
+          <span className='block mt-3 text-gray-500 text-sm'>
+            Didn't receive the code? Please check your
+            <span className='text-yellow-400 font-medium'> Spam </span>
+            or
+            <span className='text-yellow-400 font-medium'> Junk </span>
+            folder.
+          </span>
         </p>
 
         <form onSubmit={handleSubmit} className='space-y-5'>

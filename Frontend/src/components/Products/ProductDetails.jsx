@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Star } from 'lucide-react'
 import AddToCart from './AddToCart'
 import api from '../../api/axios'
+import SearchLoader from '../Common/SearchLoader'
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -32,7 +33,7 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <div className='min-h-[70vh] flex items-center justify-center'>
-        <p className='text-gray-400'>Loading product...</p>
+        <SearchLoader />
       </div>
     )
   }
