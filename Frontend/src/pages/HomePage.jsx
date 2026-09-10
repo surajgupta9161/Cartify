@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import CategoryBar from '../components/Navbar/CategoryBar'
 import ProductList from '../components/Products/ProductList'
+import UpdateBanner from './UpdatesBanner/UpdateBanner'
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
         <Navbar />
         <CategoryBar />
       </div>
+      <UpdateBanner />
       <ProductList />
     </div>
   )
