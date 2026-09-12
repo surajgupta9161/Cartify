@@ -71,27 +71,27 @@ const AddToCart = ({ productId, className = '' }) => {
       }}
       disabled={loading}
       className={`
-        rounded-lg font-semibold
-        transition active:scale-95
+    rounded-lg font-semibold
+    transition active:scale-95
 
-        ${
-          isAdded
-            ? 'bg-green-600 text-white px-3 py-1 text-sm cursor-pointer hover:bg-red-600'
-            : 'bg-white text-pink-600 border border-pink-600 px-5 py-1.5 hover:bg-pink-50 cursor-pointer'
-        }
+    ${
+      isAdded
+        ? 'bg-green-600 text-white px-2 py-0.5 text-xs sm:px-3 sm:py-1 sm:text-sm cursor-pointer hover:bg-red-600'
+        : 'bg-white text-pink-600 border border-pink-600 px-3 py-1 text-xs sm:px-5 sm:py-1.5 sm:text-sm hover:bg-pink-50 cursor-pointer'
+    }
 
-        ${loading ? 'opacity-70 cursor-not-allowed' : ''}
-        ${className}
-      `}
+    ${loading ? 'opacity-70 cursor-not-allowed' : ''}
+    ${className}
+  `}
     >
       {isAdded ? (
         <span className='flex items-center gap-1'>
-          <Check size={14} />
+          <Check className='w-3 h-3 sm:w-3.5 sm:h-3.5' />
           Added
         </span>
       ) : (
         <span className='flex items-center gap-1'>
-          <ShoppingCart size={20} />
+          <ShoppingCart className='w-4 h-4 sm:w-5 sm:h-5' />
           ADD
         </span>
       )}

@@ -10,26 +10,31 @@ import VerifyOtp from './pages/Auth/VerifyOtp'
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
 import VerifyResetOtp from './pages/ForgotPassword/VerifyResetOtp'
 import ResetPassword from './pages/ForgotPassword/ResetPassword'
+import Footer from './components/Common/Footer'
 
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' element={<HomePage />} />
-      <Route path='/register'>
-        <Route index element={<UserRegister />} />
-        <Route path='verify-otp' element={<VerifyOtp />} />
-      </Route>
-      <Route path='/login' element={<UserLogin />} />
-      <Route path='/forgot-password'>
-        <Route index element={<ForgotPassword />} />
-        <Route path='verify-reset-otp' element={<VerifyResetOtp />} />
-        <Route path='reset-password' element={<ResetPassword />} />
-      </Route>
-      <Route path='/profile' element={<ProfilePage />} />
-      <Route path='/cart' element={<CartPage />} />
-      <Route path='/product/:id' element={<ProductDetails />} />
-      <Route path='*' element={<PageNotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/register'>
+          <Route index element={<UserRegister />} />
+          <Route path='verify-otp' element={<VerifyOtp />} />
+        </Route>
+        <Route path='/login' element={<UserLogin />} />
+        <Route path='/forgot-password'>
+          <Route index element={<ForgotPassword />} />
+          <Route path='verify-reset-otp' element={<VerifyResetOtp />} />
+          <Route path='reset-password' element={<ResetPassword />} />
+        </Route>
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/cart' element={<CartPage />} />
+        <Route path='/product/:id' element={<ProductDetails />} />
+        <Route path='*' element={<PageNotFound />} />
+      </Routes>
+      {/* <Footer /> */}
+      <Footer />
+    </>
   )
 }
 
