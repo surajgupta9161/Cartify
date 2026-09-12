@@ -79,7 +79,7 @@ const YouMayAlsoLike = ({ currentProduct }) => {
           overflow-x-auto
           scroll-smooth
           pb-1
-          [scrollbar-width:none]
+          scrollbar-none
           [-ms-overflow-style:none]
           [&::-webkit-scrollbar]:hidden
         '
@@ -89,8 +89,8 @@ const YouMayAlsoLike = ({ currentProduct }) => {
             key={item._id}
             onClick={() => navigate(`/product/${item._id}`)}
             className='
-              min-w-[130px] w-[130px]
-              sm:min-w-[150px] sm:w-[150px]
+              min-w-32.5 w-32.5
+              sm:min-w-37.5 sm:w-37.5
               bg-[#2d2c2c]
               rounded-lg
               overflow-hidden
@@ -100,7 +100,7 @@ const YouMayAlsoLike = ({ currentProduct }) => {
             '
           >
             {/* IMAGE */}
-            <div className='bg-[#242323] h-[105px] sm:h-[120px] overflow-hidden'>
+            <div className='bg-[#242323] h-26.25 sm:h-30 overflow-hidden'>
               <img
                 src={item.image}
                 alt={item.name}
@@ -122,7 +122,7 @@ const YouMayAlsoLike = ({ currentProduct }) => {
 
               {/* RATING + PRICE */}
               <div className='flex items-center justify-between mt-1'>
-                <div className='flex items-center gap-0.5 bg-green-600 px-1 py-[1px] rounded'>
+                <div className='flex items-center gap-0.5 bg-green-600 px-1 py-px rounded'>
                   <span className='text-[8px]'>{item.rating}</span>
 
                   <Star size={7} fill='currentColor' />

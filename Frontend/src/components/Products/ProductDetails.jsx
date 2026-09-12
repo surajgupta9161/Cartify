@@ -131,9 +131,9 @@ const ProductDetails = () => {
             alt={product.name}
             className='
       w-full
-      h-[320px]
-      sm:h-[400px]
-      lg:h-[460px]
+      h-80
+      sm:h-100
+      lg:h-115
       object-contain
     '
           />
