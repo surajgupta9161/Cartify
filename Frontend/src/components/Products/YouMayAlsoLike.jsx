@@ -1,16 +1,29 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useProduct } from '../../context/ProductContext'
 import AddToCart from './AddToCart'
+import api from '../../api/axios'
 
 const YouMayAlsoLike = ({ currentProduct }) => {
-  const { products } = useProduct()
   const navigate = useNavigate()
   const scrollRef = useRef(null)
 
-  // Current product ki category ko hata kar
-  // different categories ke products
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    const fetchAllProducts = async () => {
+      try {
+        const response = await api.get('/api/product')
+
+        setProducts(response.data.products || [])
+      } catch (error) {
+        console.log('YouMayAlsoLike Error:', error)
+      }
+    }
+
+    fetchAllProducts()
+  }, [])
+
   const suggestedProducts = products
     .filter(
       item =>
@@ -37,7 +50,6 @@ const YouMayAlsoLike = ({ currentProduct }) => {
 
   return (
     <div className='mt-10'>
-      {/* HEADER */}
       <div className='flex items-center justify-between mb-3'>
         <div>
           <h2 className='text-lg sm:text-xl font-semibold text-white'>
@@ -49,7 +61,6 @@ const YouMayAlsoLike = ({ currentProduct }) => {
           </p>
         </div>
 
-        {/* ARROWS */}
         <div className='flex gap-1.5'>
           <button
             onClick={scrollLeft}
@@ -71,7 +82,6 @@ const YouMayAlsoLike = ({ currentProduct }) => {
         </div>
       </div>
 
-      {/* PRODUCTS */}
       <div
         ref={scrollRef}
         className='
@@ -99,7 +109,6 @@ const YouMayAlsoLike = ({ currentProduct }) => {
               transition
             '
           >
-            {/* IMAGE */}
             <div className='bg-[#242323] h-26.25 sm:h-30 overflow-hidden'>
               <img
                 src={item.image}
@@ -108,19 +117,15 @@ const YouMayAlsoLike = ({ currentProduct }) => {
               />
             </div>
 
-            {/* DETAILS */}
             <div className='p-1.5'>
-              {/* CATEGORY */}
               <p className='text-[8px] sm:text-[9px] text-pink-400 truncate'>
                 {item.category}
               </p>
 
-              {/* NAME */}
               <h3 className='text-[10px] sm:text-[11px] font-medium text-white truncate mt-0.5'>
                 {item.name}
               </h3>
 
-              {/* RATING + PRICE */}
               <div className='flex items-center justify-between mt-1'>
                 <div className='flex items-center gap-0.5 bg-green-600 px-1 py-px rounded'>
                   <span className='text-[8px]'>{item.rating}</span>
@@ -133,7 +138,6 @@ const YouMayAlsoLike = ({ currentProduct }) => {
                 </p>
               </div>
 
-              {/* ADD TO CART */}
               <div onClick={e => e.stopPropagation()} className='mt-1.5'>
                 <AddToCart
                   productId={item._id}

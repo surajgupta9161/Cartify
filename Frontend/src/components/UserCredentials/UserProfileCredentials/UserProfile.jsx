@@ -51,11 +51,6 @@ const UserProfile = () => {
                 View and manage your orders
               </p>
             </div>
-
-            <div className='flex items-center gap-2 text-gray-400'>
-              <Package size={20} />
-              <span>{orders?.length} Orders</span>
-            </div>
           </div>
 
           {/* ORDER CARDS */}
