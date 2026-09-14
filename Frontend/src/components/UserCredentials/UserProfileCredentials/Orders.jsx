@@ -175,8 +175,8 @@ const Orders = ({ orders }) => {
                   <div
                     onClick={() => handleProductClick(item.productId)}
                     className='
-                      w-[90px]
-                      h-[90px]
+                      w-22.5
+                      h-22.5
                       sm:w-28
                       sm:h-28
                       md:w-32
