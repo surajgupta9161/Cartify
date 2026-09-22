@@ -4,9 +4,25 @@ const { sendMail } = require('../services/sendMail')
 
 const createOrder = async (req, res) => {
   try {
-    const { address, city, postalcode, paymentInfo } = req.body
+    const {
+      fullName,
+      phone,
+      addressLine,
+      city,
+      state,
+      postalCode,
+      paymentInfo
+    } = req.body
 
-    if (!address || !city || !postalcode || !paymentInfo) {
+    if (
+      !fullName ||
+      !phone ||
+      !addressLine ||
+      !city ||
+      !state ||
+      !postalCode ||
+      !paymentInfo
+    ) {
       return res.status(400).json({ message: 'All fields are required' })
     }
 
@@ -42,10 +58,12 @@ const createOrder = async (req, res) => {
       orderItems,
       totalPrice,
       shippingAddress: {
-        address,
-        city,
-        postalCode: postalcode,
-        paymentInfo
+        fullName: fullName,
+        phone: phone,
+        addressLine: addressLine,
+        city: city,
+        state: state,
+        postalCode: postalCode
       }
     })
 
@@ -54,53 +72,53 @@ const createOrder = async (req, res) => {
         const subtotal = item.price * item.qty
 
         return `
-            ${index + 1}. ${item.name}
-              Quantity : ${item.qty}
-              Price    : ₹${item.price}
-              Subtotal : ₹${subtotal}
-            `
+              ${index + 1}. ${item.name}
+                Quantity : ${item.qty}
+                Price    : ₹${item.price}
+                Subtotal : ₹${subtotal}
+              `
       })
       .join('\n')
 
     const message = `
-            ==============================
-              CARTIFY - ORDER CONFIRMATION
-            ==============================
+              ==============================
+                CARTIFY - ORDER CONFIRMATION
+              ==============================
 
-            Hello ${req.user.name},
+              Hello ${req.user.name},
 
-            Thank you for shopping with Cartify! 🎉
+              Thank you for shopping with Cartify! 🎉
 
-            Your order has been successfully placed.
+              Your order has been successfully placed.
 
-            Order ID : ${order._id}
-            Payment  : ${paymentInfo}
-            Status   : Processing
+              Order ID : ${order._id}
+              Payment  : ${paymentInfo}
+              Status   : Processing
 
-            ----------------------------------------
-                          ORDER DETAILS
-            ----------------------------------------
+              ----------------------------------------
+                            ORDER DETAILS
+              ----------------------------------------
 
-            ${itemsMessage}
+              ${itemsMessage}
 
-            ----------------------------------------
-            Total Amount : ₹${totalPrice}
-            ----------------------------------------
+              ----------------------------------------
+              Total Amount : ₹${totalPrice}
+              ----------------------------------------
 
-            Shipping Address:
-            ${address}
-            ${city} - ${postalcode}
+              Shipping Address:
+              ${addressLine},
+              ${city} - ${postalCode}
 
-            ----------------------------------------
+              ----------------------------------------
 
-            We will process your order shortly.
+              We will process your order shortly.
 
-            Thank you for choosing Cartify! ❤️
+              Thank you for choosing Cartify! ❤️
 
-            Regards,
-            Cartify Team
-            =========================
-            `
+              Regards,
+              Cartify Team
+              =========================
+              `
 
     await sendMail(req.user.email, `Order Confirmation - ${order._id}`, message)
 

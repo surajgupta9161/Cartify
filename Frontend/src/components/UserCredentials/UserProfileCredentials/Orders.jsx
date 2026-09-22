@@ -457,7 +457,7 @@ const Orders = ({ orders }) => {
                       </div>
 
                       <p className='text-xs sm:text-sm text-gray-400 leading-6'>
-                        {item.shippingAddress.address}
+                        {item.shippingAddress.addressLine}
 
                         {item.shippingAddress.city &&
                           `, ${item.shippingAddress.city}`}

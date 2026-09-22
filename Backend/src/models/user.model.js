@@ -64,7 +64,33 @@ const userSchema = new mongoose.Schema({
   resetPasswordOtpVerifiedExpires: {
     type: Date,
     default: null
-  }
+  },
+  addresses: [
+    {
+      fullName: String,
+      phone: String,
+      addressLine: String,
+      city: String,
+      state: String,
+      postalCode: String,
+
+      country: {
+        type: String,
+        default: 'India'
+      },
+
+      addressType: {
+        type: String,
+        enum: ['Home', 'Office', 'Other'],
+        default: 'Home'
+      },
+
+      isDefault: {
+        type: Boolean,
+        default: false
+      }
+    }
+  ]
 })
 
 const userModel = mongoose.model('User', userSchema)
