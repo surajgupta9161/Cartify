@@ -435,7 +435,7 @@ const Footer = () => {
                 <Phone size={11} className='text-green-400 shrink-0' />
 
                 <span className='text-[9px] sm:text-[10px] text-gray-400 truncate'>
-                  +91 98765 43210
+                  +91 9161666189
                 </span>
               </div>
 
