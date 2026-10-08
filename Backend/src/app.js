@@ -9,11 +9,16 @@ const cartRoute = require('./routes/cart.route')
 const paymentRoute = require('./routes/payment.route')
 const analyticsRoute = require('./routes/analytics.route')
 const resetPasswordRoute = require('./routes/resetPassword.route')
+const pinRouter = require('./routes/pin')
 
 app.use(cookieParser())
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://cartify-mvcz.onrender.com'],
+    origin: [
+      'http://localhost:5173',
+      'https://cartify-mvcz.onrender.com',
+      'https://foreverwala.onrender.com'
+    ],
     credentials: true
   })
 )
@@ -54,4 +59,10 @@ app.use('/api/auth', resetPasswordRoute)
  * -Analytics Route
  */
 app.use('/api/analytics', analyticsRoute)
+
+/**
+ * -Pin
+ */
+app.use('/api/pin', pinRouter)
+
 module.exports = app
